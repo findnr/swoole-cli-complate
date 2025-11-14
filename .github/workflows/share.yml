@@ -73,21 +73,21 @@ jobs:
                   echo "Strings are not equal"
               fi
           done
-      # - name: mv /mnt/r68s/bin/targets/rockchip/armv8/*.img.gz
-      #   run: |
-      #     ls -l /mnt/r68s/bin/targets/rockchip/armv8/
-      #     mkdir file
-      #     mv /mnt/r68s/bin/targets/rockchip/armv8/*.img.gz file/
-      #     echo "###--------------------------------------------###"
-      #     ls -lh
-      #     cd file && ls -lh
-      #     echo "strDate=$(TZ=UTC-8 date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
-      # - name: Upload release asset
-      #   uses: svenstaro/upload-release-action@v2
-      #   with:
-      #     repo_token: ${{ secrets.CYM_TOKEN }}
-      #     tag: ${{ env.strDate }}
-      #     file_glob: true
-      #     overwrite: true
-      #     release_name: ${{ env.strDate }} 自动发布
-      #     file: file/*
+      - name: mv /mnt/swoole-cli-main317/*.tar.xz
+        run: |
+          ls -l /mnt/swoole-cli-main317/
+          mkdir file
+          mv /mnt/swoole-cli-main317/*.tar.xz file/
+          echo "###--------------------------------------------###"
+          ls -lh
+          cd file && ls -lh
+          echo "strDate=$(TZ=UTC-8 date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+      - name: Upload release asset
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.CYM_TOKEN }}
+          tag: ${{ env.strDate }}
+          file_glob: true
+          overwrite: true
+          release_name: ${{ env.strDate }} 自动发布
+          file: file/*
