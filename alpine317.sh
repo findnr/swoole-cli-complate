@@ -24,6 +24,7 @@ php prepare.php +inotify +mongodb +xlswriter
 
 # 定义在容器内执行的命令
 CONTAINER_COMMANDS="
+ls -l &&
 cd /work &&
 export PATH=\$PATH:/work/bin/runtime &&
 sh sapi/quickstart/linux/alpine-init.sh &&
