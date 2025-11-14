@@ -28,8 +28,6 @@ ls -l &&
 cd /work &&
 export PATH=\$PATH:/work/bin/runtime &&
 sh sapi/quickstart/linux/alpine-init.sh &&
-php prepare.php &&
-php prepare.php +inotify +mongodb +xlswriter &&
 ./make.sh all-library &&
 ./make.sh config &&
 ./make.sh build &&
