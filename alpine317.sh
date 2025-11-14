@@ -48,7 +48,7 @@ else
     
     # ⬇️ 解决方案 2: 移除 -it，并使用 tail -f /dev/null 保持容器存活
     echo "启动新容器..."
-    docker run -d --name $CONTAINER_NAME -v $WORK_DIR:$WORK_DIR $BASE_IMAGE tail -f /dev/null
+    docker run -d --name $CONTAINER_NAME -v $WORK_DIR:/work $BASE_IMAGE tail -f /dev/null
     
     echo "在新容器中执行命令..."
     # ⬇️ 解决方案 1: 移除 -it
