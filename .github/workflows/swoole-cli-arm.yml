@@ -1,4 +1,4 @@
-name: swoole run main
+name: swoole run swoole-cli-arm
 on:
   workflow_dispatch:
   # push:
@@ -6,6 +6,8 @@ on:
 jobs:
   job1:
     uses: ./.github/workflows/share.yml
+    with:
+        runs-on: ubuntu-24.04-arm
     secrets: 
       ZEROTIER_ID: ${{ secrets.ZEROTIER_ID }}
       ZEROTIER_TOKEN: ${{ secrets.ZEROTIER_TOKEN }}
