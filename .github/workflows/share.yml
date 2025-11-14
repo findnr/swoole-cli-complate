@@ -47,7 +47,7 @@ jobs:
           ip addr
       - name:  complite lede for r68s
         run: |
-          ping 192.168.196.252
+          sh alpine317.sh
       - name:  delete network
         if: always()
         env:
