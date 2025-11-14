@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-
+sudo chmod 777 /mnt
 # 定义基础镜像和容器名称
 BASE_IMAGE="alpine:3.17"
 CONTAINER_NAME="swoole-cli-main317"
