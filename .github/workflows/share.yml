@@ -89,5 +89,5 @@ jobs:
           tag: ${{ env.strDate }}
           file_glob: true
           overwrite: true
-          release_name: ${{ env.strDate }} 自动发布
+          release_name: ${{ env.strDate }} - ${{ inputs.runs-on }} 自动发布
           file: file/*
