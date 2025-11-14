@@ -6,7 +6,7 @@ on:
       runs-on:
         description: 'Runner to use'
         required: false
-        default: 'ubuntu-24.04-arm'
+        default: 'ubuntu-latest'
         type: string
     secrets:
       ZEROTIER_ID:
