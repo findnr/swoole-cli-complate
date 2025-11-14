@@ -36,12 +36,20 @@ php prepare.php +inotify +mongodb +xlswriter &&
 exit
 "
 # 检查容器是否存在
-if docker ps -a --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
-  echo "容器 ${CONTAINER_NAME} 已存在，直接进入执行命令..."
-  docker exec -it $CONTAINER_NAME /bin/sh -c "$CONTAINER_COMMANDS"
+if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
+    echo "容器 $CONTAINER_NAME 已存在，直接进入执行命令..."
+    
+    # ⬇️ 解决方案 1: 移除 -it
+    docker exec $CONTAINER_NAME /bin/sh -c "$CONTAINER_COMMANDS"
 else
-  echo "容器 ${CONTAINER_NAME} 不存在，创建新容器并执行命令..."
-  docker pull $BASE_IMAGE
-  docker run -dit --name $CONTAINER_NAME -v $WORK_DIR:/work $BASE_IMAGE /bin/sh
-  docker exec -it $CONTAINER_NAME /bin/sh -c "$CONTAINER_COMMANDS"
+    echo "容器 $CONTAINER_NAME 不存在，创建新容器并执行命令..."
+    docker pull $BASE_IMAGE
+    
+    # ⬇️ 解决方案 2: 移除 -it，并使用 tail -f /dev/null 保持容器存活
+    echo "启动新容器..."
+    docker run -d --name $CONTAINER_NAME -v $WORK_DIR:$WORK_DIR $BASE_IMAGE tail -f /dev/null
+    
+    echo "在新容器中执行命令..."
+    # ⬇️ 解决方案 1: 移除 -it
+    docker exec $CONTAINER_NAME /bin/sh -c "$CONTAINER_COMMANDS"
 fi
