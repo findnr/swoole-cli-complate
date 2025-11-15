@@ -51,7 +51,7 @@ if docker ps -a --format '{{.Names}}' | grep -q "^$CONTAINER_NAME$"; then
     echo "容器 $CONTAINER_NAME 已存在，直接进入执行命令..."
     
     # ⬇️ 解决方案 1: 移除 -it
-    docker exec $CONTAINER_NAME /bin/sh -c "$CONTAINER_COMMANDS"
+    docker exec $CONTAINER_NAME /bin/sh -c "($CONTAINER_COMMANDS) 2>&1 | tee /work/compile.log"
 else
     echo "容器 $CONTAINER_NAME 不存在，创建新容器并执行命令..."
     docker pull $BASE_IMAGE
@@ -62,5 +62,5 @@ else
     
     echo "在新容器中执行命令..."
     # ⬇️ 解决方案 1: 移除 -it
-    docker exec $CONTAINER_NAME /bin/sh -c "$CONTAINER_COMMANDS"
+    docker exec $CONTAINER_NAME /bin/sh -c "($CONTAINER_COMMANDS) 2>&1 | tee /work/compile.log"
 fi
