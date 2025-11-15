@@ -23,3 +23,5 @@ jobs:
       ZEROTIER_ID: ${{ secrets.ZEROTIER_ID }}
       ZEROTIER_TOKEN: ${{ secrets.ZEROTIER_TOKEN }}
       CYM_TOKEN: ${{secrets.CYM_TOKEN}}
+      PHP_VERSION: ${{ inputs.php_version }}
+      SWOOLE_VERSION: ${{ inputs.swoole_version }}
