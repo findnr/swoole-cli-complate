@@ -4,9 +4,14 @@ on:
     inputs:
         php_version:
           description: '要构建的php版本号 (例如: 8.1.14)'
-          required: true    # 'true' 表示此项必填
-          default: '8.1.14'  # 默认值
-          type: string      # 'string', 'boolean', 'choice', 'environment'
+          required: true
+          default: '8.1.14'
+          type: string
+        swoole_version:
+          description: '要构建的swoole版本号 (例如: 6.1.1)'
+          required: true
+          default: '6.1.1'
+          type: string
   # push:
   #   branches: [ "main" ]
 jobs:
