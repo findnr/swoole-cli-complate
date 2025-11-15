@@ -86,6 +86,17 @@ jobs:
           ls -lh
           cd file && ls -lh
           echo "strDate=$(TZ=UTC-8 date +'%Y-%m-%d_%H-%M-%S')" >> $GITHUB_ENV
+      - name: Generate release notes
+        run: |
+          echo "### 自动构建详情 🚀" > release_notes.md
+          echo " " >> release_notes.md
+          echo "这是一个自动编译的版本。" >> release_notes.md
+          echo " " >> release_notes.md
+          echo "- **增加的扩展:** inotify mongodb xlswriter" >> release_notes.md
+          echo "- **运行平台:** ${{ inputs.runs-on }}" >> release_notes.md
+          echo "- **编译时间:** ${{ env.strDate }}" >> release_notes.md
+          echo "- **PHP 版本:** ${{ secrets.PHP_VERSION }}" >> release_notes.md
+          echo "- **Swoole 版本:** ${{ secrets.SWOOLE_VERSION }}" >> release_notes.md
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
         with:
@@ -95,3 +106,4 @@ jobs:
           overwrite: true
           release_name: ${{ env.strDate }} - ${{ inputs.runs-on }} 自动发布
           file: file/*
+          body_path: release_notes.md
