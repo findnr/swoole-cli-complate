@@ -92,11 +92,30 @@ jobs:
           echo " " >> release_notes.md
           echo "这是一个自动编译的版本。" >> release_notes.md
           echo " " >> release_notes.md
-          echo "- **增加的扩展:** inotify mongodb xlswriter" >> release_notes.md
-          echo "- **运行平台:** ${{ inputs.runs-on }}" >> release_notes.md
-          echo "- **编译时间:** ${{ env.strDate }}" >> release_notes.md
-          echo "- **PHP 版本:** ${{ secrets.PHP_VERSION }}" >> release_notes.md
-          echo "- **Swoole 版本:** ${{ secrets.SWOOLE_VERSION }}" >> release_notes.md
+          echo "- **增加的扩展:** ** inotify mongodb xlswriter" >> release_notes.md
+          echo "- **运行平台:** ** ${{ inputs.runs-on }}" >> release_notes.md
+          echo "- **编译时间:** ** ${{ env.strDate }}" >> release_notes.md
+          echo "- **PHP 版本:** ** ${{ secrets.PHP_VERSION }}" >> release_notes.md
+          echo "- **Swoole 版本:** ** ${{ secrets.SWOOLE_VERSION }}" >> release_notes.md
+          
+          # 调试：打印文件内容，确保它被正确创建
+          echo "--- (开始) release_notes.md 内容 ---"
+          cat release_notes.md
+          echo "--- (结束) release_notes.md 内容 ---"
+
+      # 步骤 2: (新增) 将文件内容读入一个输出变量
+      - name: Read release notes body
+        id: read_notes
+        shell: bash
+        run: |
+          # 读取文件内容，替换换行符等，使其可以安全地作为参数传递
+          BODY_CONTENT=$(cat release_notes.md)
+          BODY_CONTENT="${BODY_CONTENT//'%'/'%25'}"
+          BODY_CONTENT="${BODY_CONTENT//$'\n'/'%0A'}"
+          BODY_CONTENT="${BODY_CONTENT//$'\r'/'%0D'}"
+          
+          # 将内容设置为 GitHub Actions 的输出
+          echo "body=$BODY_CONTENT" >> $GITHUB_OUTPUT
       - name: Upload release asset
         uses: svenstaro/upload-release-action@v2
         with:
@@ -106,4 +125,4 @@ jobs:
           overwrite: true
           release_name: ${{ env.strDate }} - ${{ inputs.runs-on }} 自动发布
           file: file/*
-          body_path: release_notes.md
+          body: ${{ steps.read_notes.outputs.body }}
