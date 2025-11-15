@@ -1,6 +1,17 @@
 name: swoole run swoole-cli-amdx86
 on:
   workflow_dispatch:
+    inputs:
+          php_version:
+            description: '要构建的php版本号 (例如: 8.1.14)'
+            required: true
+            default: '8.1.14'
+            type: string
+          swoole_version:
+            description: '要构建的swoole版本号 (例如: 6.1.1)'
+            required: true
+            default: '6.1.2'
+            type: string
   # push:
   #   branches: [ "main" ]
 jobs:
