@@ -1,6 +1,12 @@
 name: swoole run swoole-cli-arm
 on:
   workflow_dispatch:
+    inputs:
+        php_version:
+          description: '要构建的php版本号 (例如: 8.1.14)'
+          required: true    # 'true' 表示此项必填
+          default: '8.1.14'  # 默认值
+          type: string      # 'string', 'boolean', 'choice', 'environment'
   # push:
   #   branches: [ "main" ]
 jobs:
