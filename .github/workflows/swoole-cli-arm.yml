@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
         php_version:
-          description: '要构建的php版本号 (例如: 8.1.14)'
+          description: '要构建的php版本号 (例如: 8.4.14)'
           required: true
-          default: '8.1.14'
+          default: '8.4.14'
           type: string
         swoole_version:
           description: '要构建的swoole版本号 (例如: v6.1.1)'
