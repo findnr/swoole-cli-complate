@@ -123,6 +123,6 @@ jobs:
           tag: ${{ env.strDate }}
           file_glob: true
           overwrite: true
-          release_name: ${{ env.strDate }} - ${{ inputs.runs-on }} 自动发布
+          release_name: ${{ env.strDate }} - ${{ inputs.runs-on }} 自动发布 PHP=>${{ secrets.PHP_VERSION }} Swoole=>${{ secrets.SWOOLE_VERSION }}
           file: file/*
           body: ${{ steps.read_notes.outputs.body }}
